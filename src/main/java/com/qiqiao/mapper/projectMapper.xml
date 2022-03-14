@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiqiao.mapper.projectMapper">
+  <resultMap id="BaseResultMap" type="com.qiqiao.model.project">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="projectname" jdbcType="VARCHAR" property="projectname" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+    <result column="posttime" jdbcType="VARCHAR" property="posttime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="classes" jdbcType="VARCHAR" property="classes" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="fangxiang" jdbcType="VARCHAR" property="fangxiang" />
+    <result column="time" jdbcType="VARCHAR" property="time" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="href" jdbcType="VARCHAR" property="time" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, projectname, size, posttime, name, classes, username, fangxiang, time, score,href
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from project
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="findAllProjects" resultType="com.qiqiao.model.project">
+    select * from project order by id desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from project
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qiqiao.model.project">
+    insert into project (id, projectname, size, 
+      posttime, name, classes, 
+      username, fangxiang, time, 
+      score,href)
+    values (#{id,jdbcType=INTEGER}, #{projectname,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, 
+      #{posttime,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{classes,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{fangxiang,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, 
+      #{score,jdbcType=INTEGER},#{href,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectByUsername"  resultType="com.qiqiao.model.project">
+    select * from project where username= #{username,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByFangxiang"  resultType="com.qiqiao.model.project">
+    select * from project where fangxiang= #{fangxiang,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByName"  resultType="com.qiqiao.model.project">
+    select * from project where name= #{name,jdbcType=VARCHAR}
+  </select>
+  <insert id="insertSelective" parameterType="com.qiqiao.model.project">
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectname != null">
+        projectname,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+      <if test="posttime != null">
+        posttime,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="classes != null">
+        classes,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="fangxiang != null">
+        fangxiang,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="href != null">
+        href,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="projectname != null">
+        #{projectname,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="posttime != null">
+        #{posttime,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="classes != null">
+        #{classes,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="fangxiang != null">
+        #{fangxiang,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qiqiao.model.project">
+    update project
+    <set>
+      <if test="projectname != null">
+        projectname = #{projectname,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        size = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="posttime != null">
+        posttime = #{posttime,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="classes != null">
+        classes = #{classes,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="fangxiang != null">
+        fangxiang = #{fangxiang,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qiqiao.model.project">
+    update project
+    set projectname = #{projectname,jdbcType=VARCHAR},
+      size = #{size,jdbcType=VARCHAR},
+      posttime = #{posttime,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      classes = #{classes,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      fangxiang = #{fangxiang,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

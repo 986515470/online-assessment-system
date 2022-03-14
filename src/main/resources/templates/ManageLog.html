@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+	
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+	<link rel="stylesheet" href="css/font.css">
+	<link rel="stylesheet" href="css/xadmin.css">
+	<link rel="stylesheet" href="layui/css/layui.css" media="all">
+	<link rel="stylesheet" href="css/amazeui.min.css"/>
+	
+	<script type="text/javascript" src="scripts/jquery.min.js"></script>
+	<script type="text/javascript" src="layui/layui.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/xadmin.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<title>学生成绩列表</title>
+
+</head>
+
+<body>
+<div class="x-body">
+	<div class="layui-row">
+		<form action="" class="layui-form layui-col-md12 x-so" id="form" method="get">
+			<input type="text" name="name" id="name" placeholder="姓名查询" autocomplete="off" class="layui-input">
+			<input type="text" name="fangxiang" id="fangxiang" placeholder="方向查询" autocomplete="off"
+			       class="layui-input">
+			<button class="layui-btn" ><i class="layui-icon">&#xe615;</i></button>
+		</form>
+	</div>
+	<xblock>
+		<button class="layui-btn" onclick="reload()"><i class="layui-icon">&#xe631;</i>刷新</button>
+		<span class="x-right" style="line-height:40px">提交日志文件</span>
+	</xblock>
+	<table class="layui-table">
+	
+	</table>
+	
+	<!--page begin-->
+	<div class="am-cf">
+		<!-- 共1条记录, 每页  5 条, 当前为  2 页 -->
+		<div class="am-fr">
+			<ul class="am-pagination">
+				<!--				<li><a href="javascript:;" onclick="book_getFirstPage(this,'${sessionScope.currentPage}')" >首页</a></li>-->
+				<!--				<li><a href="javascript:;" onclick="book_getPriverPage('${sessionScope.dataCount}','${sessionScope.currentPage}')" >上一页</a></li>-->
+				<!--				<li><a href="javascript:;" onclick="book_getNextPage('${sessionScope.dataCount}','${sessionScope.currentPage}')" >下一页</a></li>-->
+				<!--				<li><a href="javascript:;" onclick="book_getLastPAge(this,'${sessionScope.dataCount}')" >尾页</a></li>-->
+			</ul>
+		</div>
+	</div>
+	<!--page end-->
+</div>
+
+<!--用户操作使用form表单提交信息-->
+<form action="" id="sendOrder" name="sendOrder" method="post">
+</form>
+<!--设置用来接受弹出窗口的整个form表单-->
+<div id="mianFromDiv" style="display:none;">
+</div>
+<!--弹框页面操作 end-->
+
+<script type="text/javascript" src="js/ManageLog.js" ></script>
+</body>
+<script type="text/javascript">
+function reload()
+{
+window.location.reload();
+}
+
+	window.onload = function()
+{
+        LoadQDPro();
+}
+function LoadQDPro(){
+         $('.layui-table').empty();
+
+            $.ajax({
+                url: "findAllProjects",
+                async: false,
+                cache: false,
+                type: "get",
+                dataType: "json",
+                success: function (data) {
+                   var head="";
+                 head=head+'<thead>';
+                head=head+'<tr>';
+                head=head+'	<th>ID</th>';
+                head=head+'	<th>项目名称</th>';
+                head=head+'	<th>文件大小</th>';
+                head=head+'	<th>提交时间</th>';
+                head=head+'	<th>学生姓名</th>';
+                head=head+'	<th>班级</th>';
+                head=head+'	<th>一卡通号</th>';
+                head=head+'	<th>考核方向</th>';
+                head=head+'	<th>考核人</th>';
+                head=head+'	<th>批改时间</th>';
+                head=head+'	<th>分数</th>';
+                head=head+'	<th>打分</th>';
+                head=head+'<tr/>';
+                head=head+'</thead>';
+                $('.layui-table').append(head);
+				  $.each(data,function(i,n){
+				  if(n.fangxiang=='前端'){
+                     head="";
+                     head=head+'<tbody id="tb">';
+                     head=head+'<tr>';
+                     head=head+'<td>'+n.id+'</td>';
+                     head=head+'<td><a href="'+n.href+'" download="'+n.href+'">'+n.projectname+'</a></td>';
+                     head=head+'<td>'+n.size+'</td>';
+                     head=head+'<td>'+n.posttime+'</td>';
+                     head=head+'<td>'+n.name+' </td>';
+                     head=head+'<td>'+n.classes+'</td>';
+                     head=head+'<td>'+n.username+'</td>';
+                     head=head+'<td>'+n.fangxiang+'</td>';
+                    
+                        head=head+'<td>张跃甲</td>';
+                     
+
+                     if(n.time==null)
+                       head=head+'<td></td>';
+                     else
+                        head=head+'<td>'+n.time+'</td>';
+
+                     if(n.score==null)
+                       head=head+'<td></td>';
+                     else
+                       head=head+'<td>'+n.score+'</td>';
+
+                     head=head+'<td class="td-manage">';
+                     head=head+'	<a title="打分"  onclick="EditScore('+n.id+')" href="javascript:;">';
+                     head=head+'		<i class="layui-icon">&#xe609;</i>';
+                     head=head+'	</a>                   ';
+                     head=head+'</td>';
+                     head=head+'</tbody>';
+                   $('.layui-table').append(head);
+                  }
+
+                    })
+					 }
+                   })
+
+
+                 }
+
+</script>
+</html>

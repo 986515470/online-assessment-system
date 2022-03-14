@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="format-detection" content="telephone=no">
+
+        <link rel="stylesheet" href="layui/css/layui.css">
+        <script type="text/javascript" src="layui/layui.js"></script>
+        <script type="text/javascript" src="scripts/jquery.min.js"></script>
+        
+		<title>成绩</title>
+		<style>
+            body{padding: 10px;}
+        </style>
+	</head>
+	
+	<body>
+	<form class="layui-form layui-form-pane1"  action="updateByProjectId1"  id ="subform" method="post">
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label">学生成绩</label>
+    <div class="layui-input-block">
+	   <input name="id" id="id" type="hidden">
+      <input type="text" name="stugrade" lay-verify="required|title" required placeholder="请输入学生成绩" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="*" onclick="submitText()" n>立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+
+<br><br><br>
+
+<script>
+
+ function submitText()
+   {
+                var id=getcookie();
+                $("#id").val(id);
+<!--                alert(id);-->
+                var form = document.getElementById('subform');
+                //再次修改input内容
+                form.submit();
+                var storage=window.localStorage;
+                storage.clear();
+   }
+
+//加载layui信息
+layui.use('form', function(){
+  var form = layui.form;
+  //layui日期选择
+  layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#createTime', //指定元素
+          value: new Date()
+        });
+    });
+  
+  
+  //监听提交
+  form.on('submit(*)', function(data){
+    var subform= $(parent.document.body).children("div[id='mianFromDiv']").append($("#subform"));
+	//获取窗口索引,关闭弹窗
+    var index=parent.layer.getFrameIndex(window.name);
+    parent.layer.close(index);	
+    //发送请求	   
+	$("#subform").submit();
+  });
+  
+});
+function getcookie() {
+  //获取传递过来的localStorage
+<!--  console.log(window.localStorage.getItem('id'))-->
+  return window.localStorage.getItem('id');
+}
+</script>
+
+</body>
+</html>

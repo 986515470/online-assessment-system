@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">	
+	<meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+	
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/font.css">
+	<link rel="stylesheet" href="css/xadmin.css">
+	<link rel="stylesheet" href="layui/css/layui.css" media="all">
+	<link rel="stylesheet" href="css/amazeui.min.css"/>
+	
+    <script  type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script  type="text/javascript" src="layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/xadmin.js"></script>
+    <script type="text/javascript" src="js/echarts.min.js"></script>
+	<title>学生成绩列表</title>
+	</head>
+	
+	<body>
+	<div class="x-body">
+      <!-- <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" action="" id="searchByInfo"  method="post">
+          <input class="layui-input" placeholder="考核阶段" name="testweekly" id="testweekly">
+          <input class="layui-input" placeholder="学生班级" name="stuclass" id="stuclass">                    
+          <button class="layui-btn" onclick="searchByInfo()"><i class="layui-icon">&#xe615;</i>
+          </button>
+        </form>
+      </div> -->
+      <hr>
+      <table class="layui-table">
+      
+       
+        
+		  
+		 
+		 
+        </tbody>
+      </table>
+  </div>
+ <hr class="layui-bg-green">
+ <!--echart_part-->
+ <div id="container"  style="height: 380px"></div>
+ 
+<!--
+	作者：offline
+	时间：2021-01-19
+	描述：基本操作的js内容
+--> 
+<script type="text/javascript">
+//layui自启动
+layui.use('layer', function(){
+  $('.demo').on('click', function(){
+    var type = $(this).data('type');
+    active[type] ? active[type].call(this) : '';
+  });
+});
+
+
+
+</script>	
+
+
+<!--
+	作者：offline
+	时间：2021-01-19
+	描述：图标显示
+-->
+ <script type="text/javascript">
+ var res=[];
+$.ajax({
+        url: "getQDPlayData",
+        async: false,
+        cache: false,
+        type: "get",
+        dataType: "json",
+        success:function(response){
+          res[9]=response[0].a;
+          res[8]=response[0].b;
+          res[7]=response[0].c;
+          res[6]=response[0].d;
+          res[5]=response[0].e;
+          res[4]=response[0].f;
+          res[3]=response[0].g;
+          res[2]=response[0].h;
+          res[1]=response[0].i;
+          res[0]=response[0].j;
+
+        }
+})
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+option = {
+    title: {
+        text: '企桥工作室前端考核成绩',
+        subtext: '数据来源于考核成绩'
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data: ['学生成绩']
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    calculable: true,
+    xAxis: [
+        {
+            type: 'category',
+            data: ['60-63', '64-67', '68-71', '72-75', '76-79', '80-83', '84-87', '88-91', '92-95', '96~100']
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value'
+        }
+    ],
+    series: [
+        {
+            name: '学生成绩',
+            type: 'bar',
+            data: res,
+            markPoint: {
+                data: [
+                    {type: 'max', name: '最大值'},
+                    {type: 'min', name: '最小值'}
+                ]
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: '平均值'}
+                ]
+            }
+        }
+    ]
+};
+
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+</script>
+	<script type="text/javascript" src="js/qd.js"></script>
+</body>
+</html>

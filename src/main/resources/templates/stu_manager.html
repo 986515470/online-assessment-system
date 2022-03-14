@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:c="">
+	<head>
+		<meta charset="UTF-8">
+		<title>学生管理</title>
+		<link rel="stylesheet" href="css/font.css">
+	    <link rel="stylesheet" href="css/xadmin.css">
+	    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+	    <link rel="stylesheet" href="css/amazeui.min.css"/>
+	
+        <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="js/xadmin.js"></script>
+	</head>
+	
+	<body>
+	<div class="x-body">
+      <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" action="" id="searchByInfo"  method="post">      
+          <input type="text" name="stuname" id="stuname" placeholder="输入查询姓名" autocomplete="off" class="layui-input">
+          <input type="text" name="stucode" id="stucode" placeholder="输入查询方向" autocomplete="off" class="layui-input">
+          <button class="layui-btn"  onclick="searchByInfo()"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+      </div>
+      <xblock>
+	      <button class="layui-btn"><i class="layui-icon">&#xe65c;</i>刷新</button>
+        <a href="">
+        <span class="x-right" style="line-height:40px">
+        <button class="layui-btn"><i class="layui-icon">&#xe65c;</i>返回</button>
+        </span>
+        </a>
+      </xblock>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>用户姓名</th>            
+            <th>用户学号</th>
+            <th>用户专业班级</th>
+            <th>加入时间</th>
+	        <th>学习方向</th>
+            <th>状态</th>
+            <th>操作</th>
+        </thead>
+      </table>
+      </div>
+      <div class="am-cf">
+     <div class="am-fr">
+      <ul class="am-pagination">
+      </ul>
+     </div>
+     </div>
+
+ 
+ 
+ <!--用户操作使用form表单提交信息-->
+ <form action="" id="adminsendOrder" name="adminsendOrder" method="post">
+ </form> 
+ <!--设置用来接受弹出窗口的整个form表单-->
+ <div id="mianFromDiv" style="display:none;">
+ </div>
+	
+	<script type="text/javascript">
+     function reload()
+     {
+     window.location.reload();
+     }
+</script>
+	<script type="text/javascript" src="js/stu_manager.js" ></script>
+	</body>
+</html>

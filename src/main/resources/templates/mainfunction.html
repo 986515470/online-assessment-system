@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>主功能页面</title>
+	<link rel="stylesheet" href="css/font.css">
+	<link rel="stylesheet" href="css/xadmin.css">
+	<link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <script type="text/javascript" src="layui/layui.js" charset="utf-8"></script>
+	
+	<style type="text/css">
+		.text{
+			font-family: "微软雅黑";
+			font-size:18px;
+			color: red;
+		}
+		.basic-text{
+			color: red;
+		}
+	</style>
+	</head>
+	
+	<body>
+    <div class="x-body">
+	  <div class="layui-row">
+        <blockquote class="layui-elem-quote">
+        	<marquee onmouseover="this.stop()" onmouseout="this.start()" behavior="alternate">
+        		<font class="text">该页面进行文件上传操作,请大家在上传文件之前认真阅读注意事项！</font>
+        	</marquee>
+        </blockquote>
+          <!--page_left_part-->
+          <div class="grid-demo grid-demo-bg1">
+          	  <div class="layui-upload-drag" id="test10">
+              <i class="layui-icon"></i>
+                <p>点击上传，或将文件拖拽到此处</p>
+                <div class="layui-hide" id="uploadDemoView">
+                  <hr>
+                   <img src="" alt="上传成功后渲染" style="max-width: 196px">
+               </div>
+            </div>
+          </div>
+          <br>
+          <!--进度条内容_begin-->
+         <div style="margin-top: 15px; width:300px">
+          <div class="layui-progress">
+              <div class="layui-progress-bar" lay-percent="70%"></div>
+          </div>
+         </div>
+          <!--进度条内容_end-->
+          <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+            <legend>文件上传注意事项 :</legend>
+          </fieldset>
+           <font class="text">
+           	1.文件上传时候文件大小不得超过1G内容。<br>
+            2.上传是建议将自己的项目打成压缩包/zip形式上传。当然也支持其他类型的文件上传<br>
+            3.在上传时，备注好自己的压缩包名称：例如：张三前端考核作业1.zip  /  李四后端考核作业1.zip。不需要加班级<br>
+	        4.在上传时点击确认后或者拖拽进去后上传即为成功，请大家不要重复提交！<br><br><br>
+           </font>
+      </div>
+    </div>
+	</body>
+	
+<script type="text/javascript">
+layui.use('upload', function(){
+  var $ = layui.jquery
+  ,upload = layui.upload;
+  
+  //拖拽上传
+  upload.render({
+    elem: '#test10'
+    ,accept: 'file' //普通文件
+    ,url: 'file/upload' //改成您自己的上传接口
+    ,done: function(res){
+     
+      layer.msg('上传成功');
+      console.log(res)
+    }
+  });
+});
+</script>
+
+</html>
